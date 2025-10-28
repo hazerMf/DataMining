@@ -1,0 +1,56 @@
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from config import Config
+from api.routes import random_forest_router, model_2_router
+from utils.schemas import HealthCheckResponse
+
+
+# Khởi tạo FastAPI app
+app = FastAPI(
+    title=Config.PROJECT_NAME,
+    description=Config.DESCRIPTION,
+    version=Config.VERSION,
+    docs_url="/docs",
+    redoc_url="/redoc"
+)
+
+# CORS Middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=Config.ALLOWED_ORIGINS,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
+# Health check endpoint
+@app.get("/", response_model=HealthCheckResponse, tags=["Health Check"])
+async def health_check():
+    return {
+        "status": "healthy",
+        "message": f"{Config.PROJECT_NAME} v{Config.VERSION} đang hoạt động",
+        "models": {
+            "random_forest": "available",
+            "model_2": "available (template)"
+        }
+    }
+
+
+@app.get("/health", response_model=HealthCheckResponse, tags=["Health Check"])
+async def health():
+    return await health_check()
+
+
+# Include routers
+app.include_router(random_forest_router, prefix=Config.API_V1_STR)
+app.include_router(model_2_router, prefix=Config.API_V1_STR)
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(
+        "src.main:app",
+        host=Config.HOST,
+        port=Config.PORT,
+        reload=Config.RELOAD
+    )

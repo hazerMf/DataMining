@@ -1,0 +1,19 @@
+{
+  "is_raw": true,
+  "Sex": 0,
+  "Age": 45,
+  "Height": 152,
+  "Weight": 63,
+  "Systolic_BP": 161,
+  "Diastolic_BP": 89,
+  "Heart_Rate": 97,
+  "BMI": 27.27,
+  "Diabetes_Diabetes": 0,
+  "Diabetes_None": 1,
+  "Diabetes_Type2": 0,
+  "Cerebral_infarction_None": 1,
+  "Cerebral_infarction_infarction": 0,
+  "Cerebrovascular_None": 1,
+  "Cerebrovascular_disease": 0,
+  "Cerebrovascular_insuff": 0
+}
