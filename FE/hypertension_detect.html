@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>DataMining Frontend</title>
+</head>
+<body>
+  <button onclick="window.location.href='index.html'">⬅ Back to Home</button>
+  <h1>Predict Hypertension</h1>
+  <form id="form">
+    <label>Sex (0=Female,1=Male): <input type="number" id="Sex" value="1"></label><br>
+    <label>Age (normalized): <input type="number" id="Age" step="0.01" value="-0.45"></label><br>
+    <label>Height (normalized): <input type="number" id="Height" step="0.01" value="-0.51"></label><br>
+    <label>Weight (normalized): <input type="number" id="Weight" step="0.01" value="0.23"></label><br>
+    <label>Systolic BP (normalized): <input type="number" id="Systolic_BP" step="0.01" value="1.57"></label><br>
+    <label>Diastolic BP (normalized): <input type="number" id="Diastolic_BP" step="0.01" value="1.90"></label><br>
+    <label>Heart Rate (normalized): <input type="number" id="Heart_Rate" step="0.01" value="0.22"></label><br>
+    <label>BMI (normalized): <input type="number" id="BMI" step="0.01" value="-0.70"></label><br>
+    <label>Hypertension: <input type="number" id="Hypertension" value="3"></label><br>
+
+    <h3>Diabetes</h3>
+    <label><input type="radio" name="Diabetes" value="None" checked> None</label>
+    <label><input type="radio" name="Diabetes" value="Diabetes"> Diabetes</label>
+    <label><input type="radio" name="Diabetes" value="Type2"> Type 2</label><br>
+
+    <h3>Cerebral Infarction</h3>
+    <label><input type="radio" name="Infarction" value="None" checked> None</label>
+    <label><input type="radio" name="Infarction" value="Infarction"> Infarction</label><br>
+
+    <h3>Cerebrovascular Disease</h3>
+    <label><input type="radio" name="CVD" value="None" checked> None</label>
+    <label><input type="radio" name="CVD" value="Disease"> Disease</label>
+    <label><input type="radio" name="CVD" value="Insuff"> Insufficiency</label><br>
+
+    <button type="submit">Send</button>
+  </form>
+
+  <pre id="output"></pre>
+
+  <script src="js/hypertension.js"></script>
+</body>
+</html>

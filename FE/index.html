@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HealthCare Portal</title>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      scroll-behavior: smooth;
+      font-family: "Poppins", sans-serif;
+      scroll-snap-type: y mandatory;
+      overflow-y: scroll;
+    }
+    section {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      scroll-snap-align: start;
+      text-align: center;
+      color: white;
+      position: relative;
+    }
+
+    /* Backgrounds */
+    #home {
+      background: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%);
+      animation: gradientShift 10s infinite alternate;
+    }
+    #about {
+      background: linear-gradient(135deg, #5EFCE8 0%, #736EFE 100%);
+    }
+    #contact {
+      background: linear-gradient(135deg, #FAD961 0%, #F76B1C 100%);
+    }
+    #footer {
+      background: #333;
+    }
+
+    @keyframes gradientShift {
+      0% {background-position: left;}
+      100% {background-position: right;}
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 1s forwards;
+    }
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .nav-buttons a {
+      margin: 10px;
+      transition: 0.3s;
+    }
+    .nav-buttons a:hover {
+      transform: scale(1.1);
+    }
+
+    .scroll-down {
+      position: absolute;
+      bottom: 30px;
+      font-size: 20px;
+      opacity: 0.7;
+      animation: bounce 1.5s infinite;
+    }
+    @keyframes bounce {
+      0%, 100% {transform: translateY(0);}
+      50% {transform: translateY(10px);}
+    }
+
+    img.hero-img {
+      width: 200px;
+      border-radius: 50%;
+      box-shadow: 0 0 20px rgba(255,255,255,0.5);
+      margin-bottom: 20px;
+    }
+
+    /* Navbar hidden at first */
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      display: none;
+      z-index: 999;
+    }
+
+    /* Back to top button */
+    #backToTop {
+      display: none;
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      z-index: 999;
+      font-size: 18px;
+      border: none;
+      outline: none;
+      background-color: #555;
+      color: white;
+      cursor: pointer;
+      padding: 12px;
+      border-radius: 50%;
+      transition: 0.3s;
+    }
+    #backToTop:hover {
+      background-color: #333;
+      transform: scale(1.1);
+    }
+
+    footer {
+      color: #fff;
+      background: rgba(0, 0, 0, 0.2);
+      padding: 20px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<div class="w3-bar w3-card w3-white w3-animate-top navbar" id="navbar">
+  <a href="#home" class="w3-bar-item w3-button w3-hover-none w3-hover-text-blue"><b>🏥 HealthCare Portal</b></a>
+  <a href="#about" class="w3-bar-item w3-button w3-right w3-hover-blue">About</a>
+  <a href="#contact" class="w3-bar-item w3-button w3-right w3-hover-green">Tools</a>
+</div>
+
+<!-- Section 1 -->
+<section id="home" class="w3-animate-opacity">
+  <img src="https://cdn-icons-png.flaticon.com/512/2966/2966485.png" alt="Health Icon" class="hero-img fade-in">
+  <h1 class="fade-in" style="animation-delay:0.3s">Welcome to HealthCare Portal</h1>
+  <p class="fade-in" style="animation-delay:0.6s">
+    Smart tools to monitor your health and predict common conditions.
+  </p>
+  <div class="scroll-down">⬇ Scroll Down ⬇</div>
+</section>
+
+<!-- Section 2 -->
+<section id="about" class="w3-animate-bottom">
+  <h2 class="fade-in">Why Monitor Your Health?</h2>
+  <p class="fade-in" style="max-width:600px; animation-delay:0.3s">
+    Early detection helps prevent serious conditions and improves long-term wellbeing.
+    Our AI-driven tools analyze your data and offer insights into your blood pressure,
+    glucose level, and lifestyle factors.
+  </p>
+  <div class="scroll-down">⬇ Keep Scrolling ⬇</div>
+</section>
+
+<!-- Section 3 -->
+<section id="contact" class="w3-animate-top">
+  <h2 class="fade-in">Get Started</h2>
+  <p class="fade-in" style="animation-delay:0.3s">
+    Choose a test below and explore more health prediction tools.
+  </p>
+  <div class="nav-buttons fade-in" style="animation-delay:1s">
+    <a href="hypertension_detect.html" class="w3-button w3-round-xlarge w3-white w3-hover-green w3-large">
+      🩸 Hypertension Check
+    </a>
+    <a href="diabetes_detect.html" class="w3-button w3-round-xlarge w3-white w3-hover-blue w3-large">
+      🍭 Diabetes Check
+    </a>
+  </div>
+</section>
+
+<!-- Footer Section -->
+<section id="footer">
+  <footer>
+    <h4>About Us</h4>
+    <p>HealthCare Portal is a student project aiming to bring AI-assisted wellness monitoring to everyone.</p>
+    <p>© 2025 HealthCare Portal. All Rights Reserved.</p>
+  </footer>
+</section>
+
+<!-- Back to Top Button -->
+<button id="backToTop" title="Go to top">⬆</button>
+
+<script>
+  // Show navbar and back-to-top when scrolling past first section
+  window.onscroll = function() {
+    const navbar = document.getElementById("navbar");
+    const btn = document.getElementById("backToTop");
+    if (window.scrollY > window.innerHeight * 0.6) {
+      navbar.style.display = "block";
+      btn.style.display = "block";
+    } else {
+      navbar.style.display = "none";
+      btn.style.display = "none";
+    }
+  };
+
+  // Smooth scroll to top
+  document.getElementById("backToTop").onclick = function() {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+</script>
+
+</body>
+</html>
