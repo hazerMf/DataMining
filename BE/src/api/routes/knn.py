@@ -15,7 +15,7 @@ router = APIRouter(prefix="/knn", tags=["KNN Blood Pressure Prediction"])
     response_model=BPPredictionResponse,
     summary="Predict Systolic Blood Pressure",
     description="""
-    Dự đoán huyết áp tâm thu (Systolic BP) sử dụng KNN regression model.
+    Dự đoán Systolic BP.
     """
 )
 async def predict_systolic_bp(
@@ -75,7 +75,7 @@ async def predict_systolic_bp(
     response_model=BPPredictionResponse,
     summary="Predict Diastolic Blood Pressure",
     description="""
-    Dự đoán huyết áp tâm trương (Diastolic BP) sử dụng KNN regression model.
+    Dự đoán Diastolic BP s
     """
 )
 async def predict_diastolic_bp(
