@@ -1,12 +1,13 @@
 from functools import lru_cache
 from models.random_forest_model import RandomForestModel
-from models.model_2 import Model2
+from models.knn_model import KNNSystolicModel, KNNDiastolicModel
 from config import Config
 
 
 # Singleton instances
 _random_forest_model = None
-_model_2 = None
+_knn_systolic_model = None
+_knn_diastolic_model = None
 
 
 @lru_cache()
@@ -27,26 +28,45 @@ def get_random_forest_model() -> RandomForestModel:
 
 
 @lru_cache()
-def get_model_2() -> Model2:
+def get_knn_systolic_model() -> KNNSystolicModel:
     """
-    Lấy singleton instance của Model 2
+    Get singleton instance of KNN Systolic BP Model
     
     Returns:
-        Model2 instance
+        KNNSystolicModel instance
     """
-    global _model_2
-    if _model_2 is None:
-        # TODO: Cập nhật path khi có model thực tế
-        _model_2 = Model2(
-            model_path=Config.MODEL_2_PATH
+    global _knn_systolic_model
+    if _knn_systolic_model is None:
+        _knn_systolic_model = KNNSystolicModel(
+            model_path=Config.KNN_SYSTOLIC_MODEL_PATH,
+            scaler_path=Config.KNN_SYSTOLIC_SCALER_PATH
         )
-    return _model_2
+    return _knn_systolic_model
+
+
+@lru_cache()
+def get_knn_diastolic_model() -> KNNDiastolicModel:
+    """
+    Get singleton instance of KNN Diastolic BP Model
+    
+    Returns:
+        KNNDiastolicModel instance
+    """
+    global _knn_diastolic_model
+    if _knn_diastolic_model is None:
+        _knn_diastolic_model = KNNDiastolicModel(
+            model_path=Config.KNN_DIASTOLIC_MODEL_PATH,
+            scaler_path=Config.KNN_DIASTOLIC_SCALER_PATH
+        )
+    return _knn_diastolic_model
 
 
 def reload_models():
-    """Reload tất cả models"""
-    global _random_forest_model, _model_2
+    """Reload all models"""
+    global _random_forest_model, _knn_systolic_model, _knn_diastolic_model
     _random_forest_model = None
-    _model_2 = None
+    _knn_systolic_model = None
+    _knn_diastolic_model = None
     get_random_forest_model.cache_clear()
-    get_model_2.cache_clear()
+    get_knn_systolic_model.cache_clear()
+    get_knn_diastolic_model.cache_clear()

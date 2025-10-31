@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from config import Config
-from api.routes import random_forest_router, model_2_router
+from api.routes import random_forest_router, knn_router
 from utils.schemas import HealthCheckResponse
 
 
@@ -31,8 +31,9 @@ async def health_check():
         "status": "healthy",
         "message": f"{Config.PROJECT_NAME} v{Config.VERSION} đang hoạt động",
         "models": {
-            "random_forest": "available",
-            "model_2": "available (template)"
+            "random_forest": "available - Hypertension Classification",
+            "knn_systolic": "available - Systolic BP Prediction (R²≈0.42)",
+            "knn_diastolic": "available - Diastolic BP Prediction (R²≈0.38)"
         }
     }
 
@@ -44,7 +45,7 @@ async def health():
 
 # Include routers
 app.include_router(random_forest_router, prefix=Config.API_V1_STR)
-app.include_router(model_2_router, prefix=Config.API_V1_STR)
+app.include_router(knn_router, prefix=Config.API_V1_STR)
 
 if __name__ == "__main__":
     import uvicorn
