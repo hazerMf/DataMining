@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Hypertension Detection - HealthCare Portal</title>
+  <title>Blood Pressure Prediction - HealthCare Portal</title>
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,600" />
   <style>
@@ -12,7 +12,6 @@
     .form-container { max-width: 800px; margin: 40px auto; padding: 20px; }
     .result-section { margin-top: 20px; }
     .form-group { margin-bottom: 15px; }
-    .radio-group { margin: 10px 0; }
     label { display: inline-block; margin-bottom: 5px; }
     input[type="number"] { width: 100%; }
   </style>
@@ -21,13 +20,12 @@
   <!-- Header -->
   <header class="header w3-container">
     <a href="index.html" class="w3-button w3-white w3-round">⬅ Back to Home</a>
-    <h1 class="w3-center">Hypertension Risk Assessment</h1>
-    <p class="w3-center">Enter your health metrics for a quick hypertension risk evaluation using our Random Forest model</p>
+    <h1 class="w3-center">Blood Pressure Prediction</h1>
+    <p class="w3-center">Enter your health metrics to predict your systolic and diastolic blood pressure using our KNN models</p>
   </header>
 
   <!-- Main Form -->
   <div class="form-container w3-white w3-card-4 w3-round-large">
-    <form id="form" class="w3-container">
     <form id="form" class="w3-container">
       <div class="w3-row-padding">
         <div class="w3-half">
@@ -47,10 +45,6 @@
             <label>Weight (normalized)</label>
             <input type="number" id="Weight" class="w3-input w3-border w3-round" step="0.01" value="0.23">
           </div>
-          <div class="form-group">
-            <label>BMI (normalized)</label>
-            <input type="number" id="BMI" class="w3-input w3-border w3-round" step="0.01" value="-0.70">
-          </div>
         </div>
         <div class="w3-half">
           <div class="form-group">
@@ -66,49 +60,30 @@
             <input type="number" id="Heart_Rate" class="w3-input w3-border w3-round" step="0.01" value="0.22">
           </div>
           <div class="form-group">
-            <label>Hypertension</label>
-            <input type="number" id="Hypertension" class="w3-input w3-border w3-round" value="3">
-          </div>
-        </div>
-      </div>
-
-      <div class="w3-row-padding">
-        <div class="w3-third">
-          <h3>Diabetes</h3>
-          <div class="radio-group">
-            <label class="w3-radio"><input type="radio" name="Diabetes" value="None" checked> None</label><br>
-            <label class="w3-radio"><input type="radio" name="Diabetes" value="Diabetes"> Diabetes</label><br>
-            <label class="w3-radio"><input type="radio" name="Diabetes" value="Type2"> Type 2</label>
-          </div>
-        </div>
-        <div class="w3-third">
-          <h3>Cerebral Infarction</h3>
-          <div class="radio-group">
-            <label class="w3-radio"><input type="radio" name="Infarction" value="None" checked> None</label><br>
-            <label class="w3-radio"><input type="radio" name="Infarction" value="Infarction"> Infarction</label>
-          </div>
-        </div>
-        <div class="w3-third">
-          <h3>Cerebrovascular Disease</h3>
-          <div class="radio-group">
-            <label class="w3-radio"><input type="radio" name="CVD" value="None" checked> None</label><br>
-            <label class="w3-radio"><input type="radio" name="CVD" value="Disease"> Disease</label><br>
-            <label class="w3-radio"><input type="radio" name="CVD" value="Insuff"> Insufficiency</label>
+            <label>BMI (normalized)</label>
+            <input type="number" id="BMI" class="w3-input w3-border w3-round" step="0.01" value="-0.70">
           </div>
         </div>
       </div>
 
       <div class="w3-center w3-padding-24">
-        <button type="submit" class="w3-button w3-blue w3-round-large w3-padding-large">Analyze Risk</button>
+        <button type="submit" class="w3-button w3-blue w3-round-large w3-padding-large">Predict Blood Pressure</button>
       </div>
     </form>
 
     <div class="result-section">
       <h3>Results</h3>
-      <pre id="output" class="w3-code w3-round-large" style="display: none;"></pre>
+      <div id="systolic_output" class="w3-panel w3-pale-blue w3-round-large" style="display: none;">
+        <h4>Systolic Blood Pressure</h4>
+        <pre class="w3-code"></pre>
+      </div>
+      <div id="diastolic_output" class="w3-panel w3-pale-green w3-round-large" style="display: none;">
+        <h4>Diastolic Blood Pressure</h4>
+        <pre class="w3-code"></pre>
+      </div>
     </div>
   </div>
 
-  <script src="js/hypertension.js"></script>
+  <script src="js/blood_pressure.js"></script>
 </body>
 </html>
