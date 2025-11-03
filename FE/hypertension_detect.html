@@ -8,13 +8,94 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,600" />
   <style>
     body { font-family: 'Poppins', sans-serif; margin: 0; background: #f7f9fc; }
-    .header { background: linear-gradient(135deg,#0f172a 0%, #0b69a3 60%); color: #fff; padding: 32px 20px; }
-    .form-container { max-width: 800px; margin: 40px auto; padding: 20px; }
-    .result-section { margin-top: 20px; }
-    .form-group { margin-bottom: 15px; }
-    .radio-group { margin: 10px 0; }
-    label { display: inline-block; margin-bottom: 5px; }
-    input[type="number"] { width: 100%; }
+    .header { 
+      background: linear-gradient(135deg,#0f172a 0%, #0b69a3 60%); 
+      color: #fff; 
+      padding: 40px 20px;
+      margin-bottom: 30px;
+    }
+    .form-container { 
+      max-width: 900px; 
+      margin: 40px auto; 
+      padding: 32px;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+    }
+    .measurement-group {
+      padding: 24px;
+      background: #f8fafc;
+      border-radius: 12px;
+      margin-bottom: 24px;
+    }
+    .result-section { 
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid #e5e7eb;
+    }
+    .form-group { 
+      margin-bottom: 20px;
+      position: relative;
+    }
+    .radio-group { 
+      margin: 12px 0;
+      padding: 8px 0;
+    }
+    .radio-group label {
+      padding: 8px 0;
+      color: #4a5568;
+      cursor: pointer;
+      transition: color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .radio-group label:hover {
+      color: #2b6cb0;
+    }
+    .radio-group input[type="radio"] {
+      margin-right: 8px;
+      width: 16px;
+      height: 16px;
+    }
+    label { 
+      display: inline-block; 
+      margin-bottom: 8px;
+      color: #374151;
+      font-weight: 500;
+    }
+    input[type="number"] { 
+      width: 100%;
+      padding: 10px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    input[type="number"]:focus {
+      border-color: #3b82f6 !important;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+    .w3-button.w3-blue {
+      background: linear-gradient(45deg, #2563eb, #3b82f6) !important;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .w3-button.w3-blue:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2);
+    }
+    .result-card {
+      padding: 20px;
+      margin-bottom: 16px;
+      border-radius: 12px;
+      animation: slideIn 0.3s ease-out;
+    }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .section-title {
+      color: #1e40af;
+      font-size: 1.2rem;
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #dbeafe;
+    }
   </style>
 </head>
 <body>
@@ -27,73 +108,87 @@
 
   <!-- Main Form -->
   <div class="form-container w3-white w3-card-4 w3-round-large">
-    <form id="form" class="w3-container">
-    <form id="form" class="w3-container">
-      <div class="w3-row-padding">
+  <form id="form" class="w3-container">
+      <div class="measurement-group w3-row-padding">
+        <h3 style="color: #1e40af; margin-top: 0; margin-bottom: 20px">Basic Information</h3>
         <div class="w3-half">
           <div class="form-group">
             <label>Sex (0=Female, 1=Male)</label>
-            <input type="number" id="Sex" class="w3-input w3-border w3-round" value="1" min="0" max="1">
+            <input type="number" id="Sex" class="w3-input w3-border w3-round-large" min="0" max="1" placeholder="0 or 1">
           </div>
           <div class="form-group">
-            <label>Age (normalized)</label>
-            <input type="number" id="Age" class="w3-input w3-border w3-round" step="0.01" value="-0.45">
-          </div>
-          <div class="form-group">
-            <label>Height (normalized)</label>
-            <input type="number" id="Height" class="w3-input w3-border w3-round" step="0.01" value="-0.51">
-          </div>
-          <div class="form-group">
-            <label>Weight (normalized)</label>
-            <input type="number" id="Weight" class="w3-input w3-border w3-round" step="0.01" value="0.23">
-          </div>
-          <div class="form-group">
-            <label>BMI (normalized)</label>
-            <input type="number" id="BMI" class="w3-input w3-border w3-round" step="0.01" value="-0.70">
+            <label>Age (years)</label>
+            <input type="number" id="Age" class="w3-input w3-border w3-round-large" min="0" max="120" step="1" placeholder="Enter age">
           </div>
         </div>
         <div class="w3-half">
           <div class="form-group">
-            <label>Systolic BP (normalized)</label>
-            <input type="number" id="Systolic_BP" class="w3-input w3-border w3-round" step="0.01" value="1.57">
+            <label>Height (cm)</label>
+            <input type="number" id="Height" class="w3-input w3-border w3-round-large" min="0" step="0.1" placeholder="Enter height">
           </div>
           <div class="form-group">
-            <label>Diastolic BP (normalized)</label>
-            <input type="number" id="Diastolic_BP" class="w3-input w3-border w3-round" step="0.01" value="1.90">
-          </div>
-          <div class="form-group">
-            <label>Heart Rate (normalized)</label>
-            <input type="number" id="Heart_Rate" class="w3-input w3-border w3-round" step="0.01" value="0.22">
-          </div>
-          <div class="form-group">
-            <label>Hypertension</label>
-            <input type="number" id="Hypertension" class="w3-input w3-border w3-round" value="3">
+            <label>Weight (kg)</label>
+            <input type="number" id="Weight" class="w3-input w3-border w3-round-large" min="0" step="0.1" placeholder="Enter weight">
           </div>
         </div>
       </div>
 
-      <div class="w3-row-padding">
+      <div class="measurement-group w3-row-padding">
+        <h3 style="color: #1e40af; margin-top: 0; margin-bottom: 20px">Health Metrics</h3>
+        <div class="w3-half">
+          <div class="form-group">
+            <label>Systolic BP (mmHg)</label>
+            <input type="number" id="Systolic_BP" class="w3-input w3-border w3-round-large" min="0" step="1" placeholder="Enter systolic BP">
+          </div>
+          <div class="form-group">
+            <label>Diastolic BP (mmHg)</label>
+            <input type="number" id="Diastolic_BP" class="w3-input w3-border w3-round-large" min="0" step="1" placeholder="Enter diastolic BP">
+          </div>
+        </div>
+        <div class="w3-half">
+          <div class="form-group">
+            <label>Heart Rate (bpm)</label>
+            <input type="number" id="Heart_Rate" class="w3-input w3-border w3-round-large" min="0" step="1" placeholder="Enter heart rate">
+          </div>
+          <div class="form-group">
+            <label>BMI (kg/m²)</label>
+            <input type="number" id="BMI" class="w3-input w3-border w3-round-large" min="0" step="0.01" placeholder="Enter BMI">
+          </div>
+        </div>
+        <p class="w3-small" style="color:#475569;margin-top:12px">
+          Enter your actual measurements in the units specified. The system will automatically handle the standardization.
+        </p>
+      </div>
+
+      <div class="w3-row-padding" style="margin-top: 30px">
+        <h3 class="section-title">Medical History</h3>
         <div class="w3-third">
-          <h3>Diabetes</h3>
-          <div class="radio-group">
-            <label class="w3-radio"><input type="radio" name="Diabetes" value="None" checked> None</label><br>
-            <label class="w3-radio"><input type="radio" name="Diabetes" value="Diabetes"> Diabetes</label><br>
-            <label class="w3-radio"><input type="radio" name="Diabetes" value="Type2"> Type 2</label>
+          <div class="w3-card w3-round-large w3-padding" style="background: #f8fafc">
+            <h3 style="color: #334155; margin: 8px 0">Diabetes</h3>
+            <div class="radio-group">
+              <label class="w3-radio"><input type="radio" name="Diabetes" value="None" checked> None</label><br>
+              <label class="w3-radio"><input type="radio" name="Diabetes" value="Diabetes"> Diabetes</label><br>
+              <label class="w3-radio"><input type="radio" name="Diabetes" value="Type2"> Type 2</label>
+            </div>
           </div>
         </div>
         <div class="w3-third">
-          <h3>Cerebral Infarction</h3>
-          <div class="radio-group">
-            <label class="w3-radio"><input type="radio" name="Infarction" value="None" checked> None</label><br>
-            <label class="w3-radio"><input type="radio" name="Infarction" value="Infarction"> Infarction</label>
+          <div class="w3-card w3-round-large w3-padding" style="background: #f8fafc">
+            <h3 style="color: #334155; margin: 8px 0">Cerebral Infarction</h3>
+            <div class="radio-group">
+              <label class="w3-radio"><input type="radio" name="Infarction" value="None" checked> None</label><br>
+              <label class="w3-radio"><input type="radio" name="Infarction" value="Infarction"> Infarction</label>
+            </div>
           </div>
         </div>
         <div class="w3-third">
-          <h3>Cerebrovascular Disease</h3>
-          <div class="radio-group">
-            <label class="w3-radio"><input type="radio" name="CVD" value="None" checked> None</label><br>
-            <label class="w3-radio"><input type="radio" name="CVD" value="Disease"> Disease</label><br>
-            <label class="w3-radio"><input type="radio" name="CVD" value="Insuff"> Insufficiency</label>
+          <div class="w3-card w3-round-large w3-padding" style="background: #f8fafc">
+            <h3 style="color: #334155; margin: 8px 0">Cerebrovascular Disease</h3>
+            <div class="radio-group">
+              <label class="w3-radio"><input type="radio" name="CVD" value="None" checked> None</label><br>
+              <label class="w3-radio"><input type="radio" name="CVD" value="Disease"> Disease</label><br>
+              <label class="w3-radio"><input type="radio" name="CVD" value="Insuff"> Insufficiency</label>
+            </div>
           </div>
         </div>
       </div>
@@ -104,8 +199,10 @@
     </form>
 
     <div class="result-section">
-      <h3>Results</h3>
-      <pre id="output" class="w3-code w3-round-large" style="display: none;"></pre>
+      <h3 style="color: #1e40af; margin-bottom: 16px">Analysis Results</h3>
+      <div id="output" class="w3-panel w3-pale-blue w3-round-large result-card" style="display: none;">
+        <pre class="w3-code" style="background: transparent; border: none;"></pre>
+      </div>
     </div>
   </div>
 

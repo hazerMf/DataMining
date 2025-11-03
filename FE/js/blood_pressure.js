@@ -10,6 +10,7 @@ document.getElementById("form").addEventListener("submit", async (e) => {
     diastolicOutput.querySelector('pre').textContent = "Analyzing diastolic blood pressure...";
 
     try {
+        // Use RAW inputs by default (pre-standardized); backend scalers will be applied
         const baseData = {
             Sex: +document.getElementById('Sex').value,
             Age: +document.getElementById('Age').value,
@@ -17,43 +18,44 @@ document.getElementById("form").addEventListener("submit", async (e) => {
             Weight: +document.getElementById('Weight').value,
             Heart_Rate: +document.getElementById('Heart_Rate').value,
             BMI: +document.getElementById('BMI').value,
-            is_raw: false
+            is_raw: true
         };
 
-        // Predict Systolic BP (needs Diastolic BP)
-        const systolicData = {
-            ...baseData,
-            Diastolic_BP: +document.getElementById('Diastolic_BP').value
-        };
+        // The KNN models require the other BP as an input. To avoid asking the user to provide
+        // Systolic/Diastolic we perform an iterative estimate: initialize with population means
+        // then alternate predictions until values converge (few iterations).
+        let systolic = 120.0; // initial guess (mmHg)
+        let diastolic = 80.0; // initial guess (mmHg)
 
-        // Predict Diastolic BP (needs Systolic BP)
-        const diastolicData = {
-            ...baseData,
-            Systolic_BP: +document.getElementById('Systolic_BP').value
-        };
+        let systolicResult = null;
+        let diastolicResult = null;
 
-        // Make both predictions in parallel
-        const [systolicRes, diastolicRes] = await Promise.all([
-            fetch("http://localhost:8000/api/v1/knn/predict/systolic", {
+        const iterations = 3;
+        for (let i = 0; i < iterations; i++) {
+            // Predict systolic using current diastolic
+            const systolicData = Object.assign({}, baseData, { Diastolic_BP: diastolic });
+            const sRes = await fetch("http://localhost:8000/api/v1/knn/predict/systolic", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(systolicData),
-            }),
-            fetch("http://localhost:8000/api/v1/knn/predict/diastolic", {
+            });
+
+            if (!sRes.ok) throw new Error(`Systolic endpoint error: ${sRes.status}`);
+            systolicResult = await sRes.json();
+            systolic = Number(systolicResult.predicted_value_mmHg);
+
+            // Predict diastolic using updated systolic
+            const diastolicData = Object.assign({}, baseData, { Systolic_BP: systolic });
+            const dRes = await fetch("http://localhost:8000/api/v1/knn/predict/diastolic", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(diastolicData),
-            })
-        ]);
+            });
 
-        if (!systolicRes.ok || !diastolicRes.ok) {
-            throw new Error(`HTTP error! Systolic status: ${systolicRes.status}, Diastolic status: ${diastolicRes.status}`);
+            if (!dRes.ok) throw new Error(`Diastolic endpoint error: ${dRes.status}`);
+            diastolicResult = await dRes.json();
+            diastolic = Number(diastolicResult.predicted_value_mmHg);
         }
-
-        const [systolicResult, diastolicResult] = await Promise.all([
-            systolicRes.json(),
-            diastolicRes.json()
-        ]);
 
         // Format and display results
         const formatResult = (result) => {
@@ -65,6 +67,7 @@ Standard Deviation: ±${result.prediction_std_mmHg.toFixed(1)} mmHg`;
         systolicOutput.querySelector('pre').textContent = formatResult(systolicResult);
         diastolicOutput.querySelector('pre').textContent = formatResult(diastolicResult);
     } catch (error) {
-        outputElement.textContent = `Error: ${error.message}`;
+        systolicOutput.querySelector('pre').textContent = `Error: ${error.message}`;
+        diastolicOutput.querySelector('pre').textContent = `Error: ${error.message}`;
     }
 });
