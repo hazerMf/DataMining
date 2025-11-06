@@ -10,6 +10,17 @@ document.getElementById("form").addEventListener("submit", async (e) => {
         const infarction = document.querySelector('input[name="Infarction"]:checked').value;
         const cvd = document.querySelector('input[name="CVD"]:checked').value;
 
+        // compute BMI from height (cm) and weight (kg)
+        const heightVal = parseFloat(document.getElementById('Height').value);
+        const weightVal = parseFloat(document.getElementById('Weight').value);
+        if (!heightVal || heightVal <= 0 || !weightVal || weightVal <= 0) {
+          throw new Error('Please enter valid Height (cm) and Weight (kg) to compute BMI');
+        }
+        const bmiComputed = weightVal / Math.pow((heightVal / 100), 2);
+        // show computed BMI in the readonly field for user feedback
+        const bmiField = document.getElementById('BMI');
+        if (bmiField) bmiField.value = bmiComputed.toFixed(2);
+
         const data = {
           Sex: +document.getElementById('Sex').value,
           Age: +document.getElementById('Age').value,
@@ -18,7 +29,7 @@ document.getElementById("form").addEventListener("submit", async (e) => {
           Systolic_BP: +document.getElementById('Systolic_BP').value,
           Diastolic_BP: +document.getElementById('Diastolic_BP').value,
           Heart_Rate: +document.getElementById('Heart_Rate').value,
-          BMI: +document.getElementById('BMI').value,
+          BMI: Number(bmiComputed.toFixed(2)),
           Diabetes_Diabetes: diabetes === "Diabetes" ? 1 : 0,
           Diabetes_None: diabetes === "None" ? 1 : 0,
           Diabetes_Type2: diabetes === "Type2" ? 1 : 0,
