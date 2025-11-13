@@ -17,6 +17,12 @@ document.getElementById("form").addEventListener("submit", async (e) => {
         if (!heightVal || heightVal <= 0 || !weightVal || weightVal <= 0) {
             throw new Error('Please enter valid Height (cm) and Weight (kg) to compute BMI');
         }
+        if ( !document.getElementById('Sex').value || !document.getElementById('Age').value){
+          throw new Error('Please enter Gender and Age');
+        }
+        if ( !document.getElementById('Heart_Rate').value ){
+          throw new Error('Please enter valid heart rate');
+        }
         const bmiComputed = weightVal / Math.pow((heightVal / 100), 2);
         // show computed BMI in the readonly field for user feedback (if present)
         const bmiField = document.getElementById('BMI');
