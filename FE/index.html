@@ -24,6 +24,37 @@
     footer.page-foot { background:#031627; color:#cfe9ff; padding:20px; }
     /* small tweaks */
     @media (max-width:600px){ .hero { padding:40px 12px; } .cta-buttons a{ display:block; margin-bottom:10px; } }
+
+    /* Fix navbar to top and increase its height */
+    .w3-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 9999;
+      height: 68px; /* make it a bit taller */
+      display: flex;
+      align-items: center; /* vertically center text */
+      padding: 0 20px;
+    }
+
+    /* Ensure page content doesn’t hide under the fixed navbar */
+    body {
+      padding-top: 68px; /* match the navbar height */
+    }
+
+    /* Adjust text size for links */
+    .w3-bar .w3-bar-item {
+      font-size: 1.1rem; /* slightly bigger text */
+      line-height: 1; /* reset line height since we use flex */
+    }
+
+    /* Make brand text a bit more prominent */
+    .w3-bar .w3-bar-item.w3-large {
+      font-size: 1.3rem;
+      font-weight: 600;
+    }
+
   </style>
 </head>
 <body>
