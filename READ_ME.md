@@ -18,7 +18,7 @@ Running in Mint for dummy(still me):
 
 2. python 3, venv
 
-3. venv/bin/activate
+3. source venv/bin/activate
 
 4. pip intall -r requirements.txt
 
