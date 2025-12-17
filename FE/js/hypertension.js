@@ -60,7 +60,6 @@ document.getElementById("form").addEventListener("submit", async (e) => {
 
         const result = await res.json();
 
-        // Render a friendly result card instead of raw JSON
         const prob = (result.probability || 0) * 100;
         outputElement.innerHTML = `
           <div class="w3-panel w3-pale-yellow w3-leftbar w3-border-yellow w3-round-large">
